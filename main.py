@@ -49,26 +49,14 @@ for r in paths:
     if os.name == 'nt':
         os.chdir(f'./{r}')
         os.system(f'snyk.exe auth {snyk_token}')
-        open_source = f'snyk.exe test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json'
-        os_result = subprocess.check_output([open_source], stderr=subprocess.STDOUT)
-        print(os_result)
-        static_code = f'snyk.exe code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json'
-        sc_result = subprocess.check_output([static_code], stderr=subprocess.STDOUT)
-        print(sc_result)
-        infra_code = f'snyk.exe iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json'
-        iac_result = subprocess.check_output([infra_code], stderr=subprocess.STDOUT)
-        print(iac_result)
+        subprocess.call(['snyk.exe', 'test',-f'-org={snyk_org}', '--all-projects', '--fail-fast', f'--json-file-output=sca_results_{timestamp}.json'], check=False)
+        subprocess.call(['snyk.exe', 'code', 'test', f'--org={snyk_org}', f'--json-file-output=sast_results_{timestamp}.json'], check=False)
+        subprocess.call(['snyk.exe', 'iac', 'test', f'--org={snyk_org}', f'--json-file-output=iac_results_{timestamp}.json'], check=False)
         time.sleep(5)
     else:
         os.chdir(f'./{r}')
         os.system(f'snyk auth {snyk_token}')
-        open_source = f'snyk test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json'
-        os_result = subprocess.check_output([open_source], stderr=subprocess.STDOUT)
-        print(os_result)
-        static_code = f'snyk code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json'
-        sc_result = subprocess.check_output([static_code], stderr=subprocess.STDOUT)
-        print(sc_result)
-        infra_code = f'snyk iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json'
-        iac_result = subprocess.check_output([infra_code], stderr=subprocess.STDOUT)
-        print(iac_result)
+        subprocess.call(['snyk', 'test',-f'-org={snyk_org}', '--all-projects', '--fail-fast', f'--json-file-output=sca_results_{timestamp}.json'], check=False)
+        subprocess.call(['snyk', 'code', 'test', f'--org={snyk_org}', f'--json-file-output=sast_results_{timestamp}.json'], check=False)
+        subprocess.call(['snyk', 'iac', 'test', f'--org={snyk_org}', f'--json-file-output=iac_results_{timestamp}.json'], check=False)
         time.sleep(5)
