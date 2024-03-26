@@ -5,7 +5,7 @@ Works with Github presently.
 
 ## REQUIRES
 
-Snyk CLI needs to be installed
+Snyk CLI needs to be installed (https://docs.snyk.io/snyk-cli/install-or-update-the-snyk-cli)
 
 ## OPTIONAL:
 
