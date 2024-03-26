@@ -11,7 +11,7 @@ Snyk CLI needs to be installed
 
 --file - Input your list file for repo names (example list file in repo)
 
-Optionsal ENV
+Optional ENV
 GH_USERNAME - Contains your GH Username
 GH_TOKEN - Contains your GH Token
 SNYK_TOKEN - Contains your GH Token
