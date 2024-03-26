@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser(description='file: input the file path to your 
 parser.add_argument("--file")
 args = parser.parse_args()
 repo_file = args.file
+start_dir = os.getcwd()
 
 if "GH_USERNAME" in os.environ:
     username = os.environ['GH_USERNAME']
@@ -52,6 +53,7 @@ for r in paths:
         subprocess.run(f'snyk.exe test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk.exe code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk.exe iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json', check=False)
+        os.chdir(f'{start_dir}')
         time.sleep(5)
     else:
         os.chdir(f'./{r}')
@@ -59,4 +61,5 @@ for r in paths:
         subprocess.run(f'snyk test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json', check=False)
+        os.chdir(f'{start_dir}')
         time.sleep(5)
