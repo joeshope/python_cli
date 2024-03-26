@@ -49,11 +49,11 @@ for r in paths:
     timestamp = now.strftime("%Y%m%d.%H%M")
     if os.name == 'nt':
         os.chdir(f'./{r}')
-        os.system(f'snyk.exe auth {snyk_token}')
-        subprocess.run(f'snyk.exe test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json', check=False)
-        subprocess.run(f'snyk.exe code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json', check=False)
-        subprocess.run(f'snyk.exe iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json', check=False)
-        subprocess.run(f'snyk.exe sbom --org={snyk_org} --all-projects --format=cyclonedx1.5+json --json-file-output=sbom_{timestamp}.json', check=False)
+        os.system(f'snyk-win.exe auth {snyk_token}')
+        subprocess.run(f'snyk-win.exe test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json', check=False)
+        subprocess.run(f'snyk-win.exe code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json', check=False)
+        subprocess.run(f'snyk-win.exe iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json', check=False)
+        subprocess.run(f'snyk-win.exe sbom --org={snyk_org} --all-projects --format=cyclonedx1.5+json --json-file-output=sbom_{timestamp}.json', check=False)
         os.chdir(f'{start_dir}')
         time.sleep(5)
     else:
