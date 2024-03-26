@@ -53,6 +53,7 @@ for r in paths:
         subprocess.run(f'snyk.exe test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk.exe code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk.exe iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json', check=False)
+        subprocess.run(f'snyk.exe sbom --org={snyk_org} --all-projects --format=cyclonedx1.5+json --json-file-output=sbom_{timestamp}.json', check=False)
         os.chdir(f'{start_dir}')
         time.sleep(5)
     else:
@@ -61,5 +62,6 @@ for r in paths:
         subprocess.run(f'snyk test --org={snyk_org} --all-projects --fail-fast --json-file-output=sca_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk code test --org={snyk_org} --json-file-output=sast_results_{timestamp}.json', check=False)
         subprocess.run(f'snyk iac test --org={snyk_org} --json-file-output=iac_results_{timestamp}.json', check=False)
+        subprocess.run(f'snyk sbom --org={snyk_org} --all-projects --format=cyclonedx1.5+json --json-file-output=sbom_{timestamp}.json', check=False)
         os.chdir(f'{start_dir}')
         time.sleep(5)
